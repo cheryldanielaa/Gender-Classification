@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classification Result</title>
+    <style>
+        body {
+            background-color: #FCF9F4;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            width: 80%;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .image-box {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            background-color: #f9f9f9;
+            width: 30%;
+            max-width: 200px;
+        }
+        .image-box img {
+            max-width: 100%;
+            max-height: 200px;
+            margin-top: 10px;
+        }
+        .result-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <form action="" method="post">
+    {% csrf_token %}
+    <div class="container">
+        <h1>Image Processing Results</h1>
+        <div class="result-container">
+            <label for="result">Result : <b>{{gender}}</b></label>
+        </div>
+        <div class="result-container">
+            <label for="result">Accuracy SVM : <b>{{accSVM}}</b></label>
+        </div>
+        <br><br>
+        <div class="image-container">
+            <div class="image-box" id="original">
+                <p>Original Image</p>
+                <img src="data:image/jpg;base64,{{original_image}}" alt="Original Image" width="250" height="250">
+            </div>
+            <div class="image-box" id="grayscale">
+                <p>Grayscale</p>
+                <img src="data:image/jpg;base64,{{gray_image}}" alt="Gray Image" width="250" height="250">
+            </div>
+            <div class="image-box" id="gaussian">
+                <p>Gaussian Blur</p>
+                <img src="data:image/jpg;base64,{{gauss_image}}" alt="Gray Image" width="250" height="250">
+            </div>
+            <div class="image-box" id="laplacian">
+                <p>Laplacian</p>
+                <img src="data:image/jpg;base64,{{lap_image}}" alt="Laplacian Image" width="250" height="250">
+            </div>
+            <div class="image-box" id="histogram">
+                <p>Histogram Equalisation</p>
+                <img src="data:image/jpg;base64,{{equ_image}}" alt="Histogram Equalization Image" width="250" height="250">
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

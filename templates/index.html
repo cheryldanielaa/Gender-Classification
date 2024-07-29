@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload and Preview</title>
+    <style>
+        body {
+            background-color: #FCF9F4;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            width: 500px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #6C63FF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            transition: background-color 0.3s ease;
+        }
+        .custom-file-upload:hover {
+            background-color: #271f51;
+        }
+        #image-preview {
+            margin: 20px 0;
+            width: 100%;
+            height: 200px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+        #image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        /*button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #C5BFAF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #A39F95;
+        }*/
+        input[type="submit"] 
+        {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #C5BFAF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"] :hover
+        {
+            background-color: #A39F95;
+        }
+    </style>
+</head>
+<body>
+    <form action="upload" method="post" enctype="multipart/form-data">
+        {% csrf_token %} <!--Biar ndak muncul error-->
+        <div class="container">
+        <h1>Face ID: Human Gender Classification Using the Human Face Image </h1>
+        <label for="file-upload" class="custom-file-upload">
+            Choose an image
+        </label>
+        <input id="file-upload" name="photo" type="file" accept="image/*" onchange="previewImage(event)">
+        <div id="image-preview">
+            <p>No image chosen</p>
+        </div>
+        <input type="submit" name="submit" value="Submit">
+    </div>
+    </form>
+    <script>
+        function previewImage(event) {
+            const preview = document.getElementById('image-preview');
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function() {
+                const imgElement = document.createElement('img');
+                imgElement.src = reader.result;
+                preview.innerHTML = '';
+                preview.appendChild(imgElement);
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.innerHTML = '<p>No image chosen</p>';
+            }
+        }
+
+        /* function saveImage() {
+            const preview = document.getElementById('image-preview');
+            const img = preview.querySelector('img');
+            if (img) {
+                localStorage.setItem('uploadedImage', img.src);
+                window.location.href = '1.html';
+            } else {
+                alert('Please choose an image first.');
+            }
+        */
+    </script>
+</body>
+</html>
